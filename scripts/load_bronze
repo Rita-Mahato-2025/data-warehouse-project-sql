@@ -1,7 +1,25 @@
+/*
+===============================================================================
+Loading BRONZE Layer  
+===============================================================================
+*/
 
+/*
+===============================================================================
+Loading CRM Tables  
+===============================================================================
+*/
+
+
+-- ======================================
+-- Truncating Table: bronze_crm_cust_info
+-- ======================================
 
 TRUNCATE TABLE bronze.bronze_crm_cust_info;
 
+-- ===========================================
+-- Inserting Data Into bronze_crm_cust_info
+-- ===========================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/cust_info.csv'
 INTO TABLE bronze.bronze_crm_cust_info
@@ -17,9 +35,16 @@ SET
   cst_marital_status = NULLIF(@cst_marital_status, ''),
   cst_gndr = NULLIF(@cst_gndr, ''),
   cst_create_date = NULLIF(@cst_create_date, '');
+  
+-- ======================================
+-- Truncating Table: bronze_crm_prd_info
+-- ======================================
 
 TRUNCATE TABLE bronze.bronze_crm_prd_info;
 
+-- ===========================================
+-- Inserting Data Into bronze_crm_prd_info
+-- ===========================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/prd_info.csv'
 INTO TABLE bronze.bronze_crm_prd_info
@@ -36,7 +61,15 @@ SET
   prd_start_dt = NULLIF(@prd_start_dt, ''),
   prd_end_dt = NULLIF(@prd_end_dt, '');
   
+-- ===========================================
+-- Truncating Table: bronze_crm_sales_details
+-- ===========================================
+  
 TRUNCATE TABLE bronze.bronze_crm_sales_details;
+
+-- =============================================
+-- Inserting Data Into bronze_crm_sales_details
+-- =============================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/sales_details.csv'
 INTO TABLE bronze.bronze_crm_sales_details
@@ -55,7 +88,15 @@ SET
   sls_quantity = NULLIF(@sls_quantity, ''),
   sls_price = NULLIF(@sls_price, '');
   
+-- ===========================================
+-- Truncating Table: bronze_erp_cust_az12
+-- ===========================================
+  
 TRUNCATE TABLE bronze.bronze_erp_cust_az12;
+
+-- =============================================
+-- Inserting Data Into bronze_erp_cust_az12
+-- =============================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/CUST_AZ12.csv'
 INTO TABLE bronze.bronze_erp_cust_az12
@@ -64,11 +105,19 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
 (@cid, @bdate, @gen)
 SET
-  cid = NULLIF(@scid, ''),
+  cid = NULLIF(@cid, ''),
   bdate  = IF(@bdate REGEXP '^[0-9]{8}$', STR_TO_DATE(@bdate, '%Y%m%d'), NULL),
   gen = NULLIF(@gen, '');
   
+-- ===========================================
+-- Truncating Table: bronze_erp_loc_a101
+-- ===========================================
+  
 TRUNCATE TABLE bronze.bronze_erp_loc_a101;
+
+-- =============================================
+-- Inserting Data Into bronze_erp_loc_a101
+-- =============================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/LOC_A101.csv'
 INTO TABLE bronze.bronze_erp_loc_a101
@@ -77,10 +126,18 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
 (@cid, @cntry)
 SET
-  cid = NULLIF(@scid, ''),
+  cid = NULLIF(@cid, ''),
   cntry = NULLIF(@cntry, '');
   
+-- ===========================================
+-- Truncating Table: bronze_erp_px_cat_g1v2
+-- ===========================================
+  
 TRUNCATE TABLE bronze.bronze_erp_px_cat_g1v2;
+
+-- =============================================
+-- Inserting Data Into bronze_erp_px_cat_g1v2
+-- =============================================
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/PX_CAT_G1V2.csv'
 INTO TABLE bronze.bronze_erp_px_cat_g1v2
